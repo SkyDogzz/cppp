@@ -11,7 +11,7 @@ Fixed::Fixed(const Fixed &fixed) {
 }
 
 Fixed &Fixed::operator=(const Fixed &fixed) {
-	std::cout << "Fixed assignement operator called" << std::endl;
+	std::cout << "Fixed assignment operator called" << std::endl;
 	this->raw = fixed.raw;
 	return *this;
 }

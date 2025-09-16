@@ -12,7 +12,7 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
-	std::cout << "Assignement operator ClapTrap called for " << this->name << "." << std::endl;
+	std::cout << "Assignment operator ClapTrap called for " << this->name << "." << std::endl;
 	if (this != &other) {
 		this->name = other.name;
 		this->hitPoints = other.hitPoints;
