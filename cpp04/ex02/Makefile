@@ -2,7 +2,7 @@ NAME	:= abstract
 CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-SRCS	:= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
+SRCS	:= main.cpp AAnimal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 OBJDIR	:= obj
 BINDIR	:= bin
 OBJS 	:= $(SRCS:%.cpp=$(OBJDIR)/%.o)

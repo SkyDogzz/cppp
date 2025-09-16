@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-Dog::Dog() : Animal() {
+Dog::Dog() : AAnimal() {
 	std::cout << "Constructor Dog called." << std::endl;
 	this->type = "Dog";
 	this->brain = new Brain();
 }
 
-Dog::Dog(const Dog& other) : Animal(other) {
+Dog::Dog(const Dog& other) : AAnimal(other) {
 	std::cout << "Copy constructor Dog called." << std::endl;
 	this->brain = new Brain(*other.brain);
 }
@@ -16,7 +16,7 @@ Dog::Dog(const Dog& other) : Animal(other) {
 Dog& Dog::operator=(const Dog& other) {
 	std::cout << "Assignment operator Dog called." << std::endl;
 	if (this != &other) {
-		Animal::operator=(other);
+		AAnimal::operator=(other);
 		delete this->brain;
 		this->brain = new Brain(*other.brain);
 	}

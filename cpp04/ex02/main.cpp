@@ -1,15 +1,15 @@
 #include <iostream>
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 
 int main() {
-    std::cout << "===== Abstract Animal Test =====" << std::endl;
+    std::cout << "===== Abstract AAnimal Test =====" << std::endl;
 
-    /*Animal a; //❌ should not compile, Animal is abstract now*/
+    /*AAnimal a; //❌ should not compile, AAnimal is abstract now*/
 
-    Animal* doggo = new Dog();
-    Animal* kitty = new Cat();
+    AAnimal* doggo = new Dog();
+    AAnimal* kitty = new Cat();
 
     doggo->makeSound();
     kitty->makeSound();

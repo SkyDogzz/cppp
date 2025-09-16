@@ -2,12 +2,12 @@
 
 #include <string>
 
-class Animal {
+class AAnimal {
 public:
-	Animal();
-	Animal(const Animal& other);
-	Animal& operator=(const Animal& other);
-	virtual ~Animal() = 0;
+	AAnimal();
+	AAnimal(const AAnimal& other);
+	AAnimal& operator=(const AAnimal& other);
+	virtual ~AAnimal() = 0;
 
 protected:
 	std::string type;
