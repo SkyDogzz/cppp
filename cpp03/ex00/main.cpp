@@ -1,31 +1,35 @@
-#include <cstdlib>
 #include <iostream>
 
 #include "ClapTrap.hpp"
 
-int main()
-{
-	ClapTrap bot1("Terminator");
-	ClapTrap bot2("Wall-E");
+int main() {
+	std::cout << "===== Constructing ClapTraps =====" << std::endl;
+	ClapTrap clap1("CLAPPY");
+	ClapTrap clap2("BOOMY");
 
-	std::cout << "\n=== ROUND 1 ===" << std::endl;
-	bot1.attack("Wall-E");
-	bot2.takeDamage(0);
+	std::cout << "\n===== Initial Stats =====" << std::endl;
+	std::cout << "CLAPPY -> HP:" << clap1.getHitPoints() << " | EP:" << clap1.getEnergyPoints()
+			  << " | AD:" << clap1.getAttackDamage() << std::endl;
+	std::cout << "BOOMY  -> HP:" << clap2.getHitPoints() << " | EP:" << clap2.getEnergyPoints()
+			  << " | AD:" << clap2.getAttackDamage() << std::endl;
 
-	std::cout << "\n=== ROUND 2 ===" << std::endl;
-	bot2.beRepaired(5);
+	std::cout << "\n===== Attacks =====" << std::endl;
+	clap1.attack("BOOMY");
+	clap2.attack("CLAPPY");
 
-	std::cout << "\n=== ROUND 3 ===" << std::endl;
-	bot1.attack("Wall-E");
-	bot2.takeDamage(0);
+	std::cout << "\n===== Taking Damage =====" << std::endl;
+	clap1.takeDamage(5);
+	clap2.takeDamage(8);
 
-	std::cout << "\n=== DRAIN ENERGY ===" << std::endl;
-	for (int i = 0; i < 10; ++i) {
-		bot1.attack("Dummy");
-	}
+	std::cout << "\n===== Repairing =====" << std::endl;
+	clap1.beRepaired(3);
+	clap2.beRepaired(5);
 
-	std::cout << "\n=== TRY TO ATTACK WITH 0 ENERGY ===" << std::endl;
-	bot1.attack("Wall-E");
+	std::cout << "\n===== Final Stats =====" << std::endl;
+	std::cout << "CLAPPY -> HP:" << clap1.getHitPoints() << " | EP:" << clap1.getEnergyPoints()
+			  << " | AD:" << clap1.getAttackDamage() << std::endl;
+	std::cout << "BOOMY  -> HP:" << clap2.getHitPoints() << " | EP:" << clap2.getEnergyPoints()
+			  << " | AD:" << clap2.getAttackDamage() << std::endl;
 
 	return 0;
 }

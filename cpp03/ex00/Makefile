@@ -1,4 +1,4 @@
-NAME	:= and_open
+NAME	:= open
 CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
@@ -30,3 +30,6 @@ fclean: clean
 	@echo "🧹 Fully cleaned (bin + obj)"
 
 re: fclean all
+
+.PHONY:
+	all clean fclean re
