@@ -82,7 +82,10 @@ int main() {
 		me->equip(src->createMateria("ice"));
 		me->equip(src->createMateria("ice"));
 		me->equip(src->createMateria("ice"));
-		me->equip(src->createMateria("ice"));  // 5th equip, should fail silently
+		AMateria* extra = src->createMateria("ice");
+		me->equip(extra);
+		if (extra)
+			delete extra;
 
 		delete bob;
 		delete me;

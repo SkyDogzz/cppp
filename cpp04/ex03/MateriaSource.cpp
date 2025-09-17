@@ -37,10 +37,12 @@ void MateriaSource::learnMateria(AMateria* m) {
 	for (int i = 0; i < 4; ++i) {
 		if (!learned[i]) {
 			learned[i] = m->clone();  // ✅ store a copy
+			delete m;
 			std::cout << "Learned " << m->getType() << ".\n";
 			return;
 		}
 	}
+	delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const& type) {

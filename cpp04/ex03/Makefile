@@ -1,6 +1,6 @@
 NAME	:= ouai_cest_long_la
 CC		:= c++
-CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
+CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP -g3
 
 SRCS	:= main.cpp MateriaSource.cpp Ice.cpp Cure.cpp AMateria.cpp Character.cpp
 OBJDIR	:= obj
