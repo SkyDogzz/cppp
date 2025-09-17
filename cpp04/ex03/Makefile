@@ -2,7 +2,7 @@ NAME	:= ouai_cest_long_la
 CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-SRCS	:= main.cpp MateriaSource.cpp
+SRCS	:= main.cpp MateriaSource.cpp Ice.cpp Cure.cpp AMateria.cpp Character.cpp
 OBJDIR	:= obj
 BINDIR	:= bin
 OBJS 	:= $(SRCS:%.cpp=$(OBJDIR)/%.o)

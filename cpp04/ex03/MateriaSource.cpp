@@ -3,60 +3,50 @@
 #include <iostream>
 
 MateriaSource::MateriaSource() {
-	std::cout << "Constructor MateriaSource called." << std::endl;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; ++i)
 		learned[i] = NULL;
+	std::cout << "MateriaSource constructed.\n";
 }
 
 MateriaSource::MateriaSource(const MateriaSource& other) {
-	std::cout << "Copy constructor MateriaSource called." << std::endl;
-	for (int i = 0; i < 4; i++) {
-		if (other.learned[i])
-			learned[i] = other.learned[i]->clone();
-		else
-			learned[i] = NULL;
-	}
+	for (int i = 0; i < 4; ++i)
+		learned[i] = other.learned[i] ? other.learned[i]->clone() : NULL;
+	std::cout << "MateriaSource copy-constructed.\n";
 }
 
 MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
-	std::cout << "Assignment operator MateriaSource called." << std::endl;
 	if (this != &other) {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; ++i) {
 			delete learned[i];
-			if (other.learned[i])
-				learned[i] = other.learned[i]->clone();
-			else
-				learned[i] = NULL;
+			learned[i] = other.learned[i] ? other.learned[i]->clone() : NULL;
 		}
 	}
+	std::cout << "MateriaSource copy-assigned.\n";
 	return *this;
 }
 
 MateriaSource::~MateriaSource() {
-	std::cout << "Destructor MateriaSource called." << std::endl;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; ++i)
 		delete learned[i];
+	std::cout << "MateriaSource destroyed.\n";
 }
 
 void MateriaSource::learnMateria(AMateria* m) {
 	if (!m)
 		return;
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i) {
 		if (!learned[i]) {
-			learned[i] = m;
-			std::cout << "MateriaSource learned " << m->getType() << std::endl;
+			learned[i] = m->clone();  // ✅ store a copy
+			std::cout << "Learned " << m->getType() << ".\n";
 			return;
 		}
 	}
-	std::cout << "MateriaSource inventory full, can't learn " << m->getType() << std::endl;
-	delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const& type) {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i)
 		if (learned[i] && learned[i]->getType() == type)
 			return learned[i]->clone();
-	}
-	std::cout << "MateriaSource doesn't know " << type << std::endl;
+	std::cout << "Unknown materia type: " << type << ".\n";
 	return NULL;
 }
