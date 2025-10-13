@@ -21,16 +21,28 @@ void Harl::error() {
 }
 
 void Harl::complain(std::string level) {
-	HarlCor levels[] = {
-		{"debug", Harl::debug}, {"info", Harl::info}, {"warning", Harl::warning}, {"error", Harl::error}};
+	int lvl = -1;
 
-	for (int i = 0; i < 4; i++) {
-		if (level == levels[i].level) {
-			for (int j = 0; j < 4 - i; j++) {
-				levels[i + j].fn();
-			}
-			return;
-		}
+	if (level == "debug")
+		lvl = 0;
+	else if (level == "info")
+		lvl = 1;
+	else if (level == "warning")
+		lvl = 2;
+	else if (level == "error")
+		lvl = 3;
+
+	switch (lvl) {
+		case 0:
+			debug();
+		case 1:
+			info();
+		case 2:
+			warning();
+		case 3:
+			error();
+			break;
+		default:
+			printErr("Log level not found");
 	}
-	printErr("Log level not found");
 }
