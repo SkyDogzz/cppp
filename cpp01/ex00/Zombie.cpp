@@ -1,14 +1,15 @@
 #include "Zombie.hpp"
 
-Zombie::Zombie(std::string name) {
-	std::cout << "Zombie " << name << " constructor called" << std::endl;
-	this->name = name;
+#include <iostream>
+
+Zombie::Zombie(std::string const &name) : _name(name) {
+	std::cout << "Zombie " << _name << " constructor called" << std::endl;
 }
 
 Zombie::~Zombie() {
-	std::cout << "Zombie " << name << " destructor called" << std::endl;
+	std::cout << "Zombie " << _name << " destructor called" << std::endl;
 }
 
-void Zombie::announce() {
-	std::cout << this->name << " Brainzzzzzzz..." << std::endl;
+void Zombie::announce() const {
+	std::cout << _name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }

@@ -1,16 +1,21 @@
-#pragma once
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
 
-#include <iostream>
 #include <string>
 
 class Zombie {
 private:
-	std::string name;
+	std::string _name;
 
 public:
 	Zombie();
+	explicit Zombie(std::string const &name);
 	~Zombie();
 
-	void announce();
-	static Zombie* zombieHorde(int N, std::string name);
+	void announce() const;
+	void setName(std::string const &name);
 };
+
+Zombie* zombieHorde(int n, std::string const &name);
+
+#endif

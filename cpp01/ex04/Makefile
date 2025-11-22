@@ -2,7 +2,7 @@ NAME	:= sed_is_for_losers
 CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-SRCS	:= main.cpp
+SRCS	:= main.cpp Sed.cpp
 OBJDIR	:= obj
 BINDIR	:= bin
 OBJS 	:= $(SRCS:%.cpp=$(OBJDIR)/%.o)

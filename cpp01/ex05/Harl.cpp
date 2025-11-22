@@ -1,36 +1,55 @@
 #include "Harl.hpp"
 
-static void printErr(std::string err)
-{
-	std::cerr << err <<  std::endl;
+#include <cctype>
+#include <iostream>
+
+namespace {
+	std::string toUpper(std::string value) {
+		for (std::string::size_type i = 0; i < value.size(); ++i) {
+			value[i] = static_cast<char>(std::toupper(value[i]));
+		}
+		return value;
+	}
+} // namespace
+
+void Harl::debug() const {
+	std::cout << "[ DEBUG ]" << std::endl;
+	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. "
+				 "I really do!"
+			  << std::endl;
 }
 
-void Harl::debug() {
-	printErr("Debug: i wish var_dump thingy like php existed");
+void Harl::info() const {
+	std::cout << "[ INFO ]" << std::endl;
+	std::cout << "I cannot believe adding extra bacon costs more money. You didn't put enough bacon in my "
+				 "burger! If you did, I wouldn't be asking for more!"
+			  << std::endl;
 }
 
-void Harl::info() {
-	printErr("Info: i inform you this this an info");
+void Harl::warning() const {
+	std::cout << "[ WARNING ]" << std::endl;
+	std::cout << "I think I deserve to have some extra bacon for free. I've been coming for years whereas you "
+				 "started working here just last month."
+			  << std::endl;
 }
 
-void Harl::warning() {
-	printErr("Warning: warning");
+void Harl::error() const {
+	std::cout << "[ ERROR ]" << std::endl;
+	std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
-void Harl::error() {
-	printErr("Error: did something broke ? i wonder ...");
-}
+void Harl::complain(std::string level) const {
+	typedef void (Harl::*Complaint)() const;
+	static const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	static const Complaint handlers[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
-void Harl::complain(std::string level) {
-	HarlCor levels[] = {
-		{"debug", Harl::debug}, {"info", Harl::info}, {"warning", Harl::warning}, {"error", Harl::error}};
+	level = toUpper(level);
 
-	for (int i = 0; i < 4; i++) {
-		if (level == levels[i].level)
-		{
-			levels[i].fn();
-			return ;
+	for (int i = 0; i < 4; ++i) {
+		if (level == levels[i]) {
+			(this->*handlers[i])();
+			return;
 		}
 	}
-	printErr("Log level not found");
+	std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 }

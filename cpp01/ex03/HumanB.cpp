@@ -1,25 +1,17 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(const char *name) {
-	std::cout << "HumanB constructor called" << std::endl;
-	this->name = name;
-	this->weapon = NULL;
-}
+#include <iostream>
 
-HumanB::~HumanB() {
-	std::cout << "HumanB destructor called" << std::endl;
-}
+HumanB::HumanB(std::string const &name) : _name(name), _weapon(NULL) {}
 
-void HumanB::attack() {
-	if (!this->weapon)
-	{
-		std::cout << this->name << " no weapon given yet." << std::endl;
-		return ;
+void HumanB::attack() const {
+	if (_weapon == NULL) {
+		std::cout << _name << " has no weapon to attack with" << std::endl;
+		return;
 	}
-	std::cout << this->name << " attacks with their " << this->weapon->getType() << std::endl;
+	std::cout << _name << " attacks with their " << _weapon->getType() << std::endl;
 }
 
-void HumanB::setWeapon(Weapon &weapon)
-{
-	this->weapon = &weapon;
+void HumanB::setWeapon(Weapon &weapon) {
+	_weapon = &weapon;
 }

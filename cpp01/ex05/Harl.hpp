@@ -1,18 +1,17 @@
-#include <iostream>
-#include <string>
+#ifndef HARL_HPP
+#define HARL_HPP
 
-struct HarlCor {
-	std::string level;
-	void (*fn)();
-};
+#include <string>
 
 class Harl {
 private:
-	static void debug(void);
-	static void info(void);
-	static void warning(void);
-	static void error(void);
+	void debug() const;
+	void info() const;
+	void warning() const;
+	void error() const;
 
 public:
-	static void complain(std::string level);
+	void complain(std::string level) const;
 };
+
+#endif

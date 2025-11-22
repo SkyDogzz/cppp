@@ -1,61 +1,49 @@
-#include <cstdlib>
-#include <fstream>
+#include "sed.hpp"
+
 #include <iostream>
 #include <string>
 
-std::string getfile(std::ifstream *infile) {
-	std::string line;
-	std::string data = "";
-	while (std::getline(*infile, line)) {
-		data += line + '\n';
-	}
-	return data;
-}
-
-std::string replaceOccurence(std::string data, std::string s1, std::string s2) {
-	std::string newData;
-	int			posData = 0;
-	int			sizeS1 = s1.length();
-	while (data[posData]) {
-		if (data.substr(posData, sizeS1) == s1) {
-			newData += s2;
-			posData += sizeS1;
-		} else {
-			newData += data[posData];
-			posData++;
-		}
-	}
-	return newData;
-}
-
-void writeToFile(std::ofstream *outfile, std::string data) {
-	outfile->write(data.data(), data.length());
+static int exitWithError(std::string const &message) {
+	std::cerr << message << std::endl;
+	return 1;
 }
 
 int main(int argc, char *argv[]) {
-	std::ifstream infile;
-	std::ofstream outfile;
-
 	if (argc != 4) {
-		std::cout << "Usage = " << argv[0] << " \"filename\" \"s1\" \"s2\"" << std::endl;
-		std::exit(1);
-	}
-	infile.open(argv[1]);
-	if (infile.is_open() == 0) {
-		std::cerr << "Can't open infile: " << argv[1] << std::endl;
-		exit(0);
+		return exitWithError("Usage: ./sed_is_for_losers <filename> <s1> <s2>");
 	}
 
-	std::string outfileName = std::string(argv[1]).append(".replace");
-	outfile.open(outfileName.data());
-	if (outfile.is_open() == 0) {
-		std::cerr << "Can't open infile: " << argv[1] << std::endl;
-		infile.close();
-		exit(0);
+	const std::string filename = argv[1];
+	const std::string search = argv[2];
+	const std::string replace = argv[3];
+
+	if (search.empty()) {
+		return exitWithError("s1 cannot be empty, nothing to replace.");
 	}
-	std::string data = getfile(&infile);
+
+	std::ifstream infile(filename.c_str());
+	if (!infile.is_open()) {
+		return exitWithError("Failed to open input file: " + filename);
+	}
+
+	std::string data = readFile(infile);
+	if (!infile.good() && !infile.eof()) {
+		return exitWithError("Error while reading input file.");
+	}
 	infile.close();
-	std::string newData = replaceOccurence(data, argv[2], argv[3]);
-	writeToFile(&outfile, newData);
+
+	std::string replaced = replaceOccurrences(data, search, replace);
+
+	std::string outFilename = filename + ".replace";
+	std::ofstream outfile(outFilename.c_str());
+	if (!outfile.is_open()) {
+		return exitWithError("Failed to open output file: " + outFilename);
+	}
+
+	if (!writeFile(outfile, replaced)) {
+		return exitWithError("Failed to write to output file.");
+	}
 	outfile.close();
+	std::cout << "Successfully wrote replacements to " << outFilename << std::endl;
+	return 0;
 }
